@@ -1,0 +1,69 @@
+# coding=utf-8
+
+#Partie Importation et Exportation Description BD et Excel
+import sqlite3
+from openpyxl.workbook import Workbook
+from openpyxl import load_workbook
+from openpyxl.worksheet.properties import WorksheetProperties,PageSetupProperties
+from openpyxl.styles import Font
+from database import connection,updateInsertTable
+from pathlib import Path
+
+chemin = input("Chemin d'accès BD NAMIP: ")
+#chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
+con,cur = connection(chemin)
+
+def initTableau():
+    wb = Workbook()
+    ws = wb.active
+    ws['A1'] = 'DescFR'
+    ws['B1'] = 'DescEN'
+    ws['C1'] = 'DescNL'
+    ws['D1'] = 'ID'
+    ws['A1'].font = Font(bold=True)
+    ws['B1'].font = Font(bold=True)
+    ws['C1'].font = Font(bold=True)
+    ws['D1'].font = Font(bold=True)
+    return ws,wb
+
+def ajouterData(ws):
+    for row in cur.execute('SELECT DescFR,DescEN,DescNL,ID FROM GENERAL;'):
+        ws.append([row[0],row[1],row[2],row[3]])
+
+def saveData(wb,chemin):
+    wb.save(chemin+"/"+"description.xlsx")
+
+def recupData(ws):
+    list = []
+    for i in range (2,ws.max_row+1):
+        listIntermediaire = []
+        for j in range (1,ws.max_column+1):
+            cellObj = ws.cell(row=i,column=j)
+            listIntermediaire.append(cellObj.value)
+        list.append(listIntermediaire)
+    return list
+
+action = input("Voulez vous écrire dans la BD : A ou dans l'excel : B")
+if(action == "B"):
+    ws,wb = initTableau()
+    ajouterData(ws)
+    chemin = input("Où sauvegarder le fichier ?")
+    if Path(chemin).exists() and Path(chemin).is_dir():
+        saveData(wb,chemin)
+        print("Ecriture dans un fichier Excel terminé")
+    else :
+        print("Le chemin donné n'existe pas")
+elif(action == "A"):
+    chemin = input("Entrez le chemin du fichier:")
+    if Path(chemin).exists() and Path(chemin).is_file() and chemin.find(".xlsx") !=-1:
+        wb = load_workbook(chemin)
+        ws = wb.active
+        listDesc = recupData(ws)
+        requete = "UPDATE GENERAL SET DescFR = ?, DescEN = ? ,DescNL = ? WHERE ID = ?;"
+        updateInsertTable(con,cur,requete,listDesc)
+        con.close()
+        print("Insertion dans la base terminée")
+    else:
+        print("Le chemin d'accès n'est pas bon")
+else:
+    print("Cette Action n'existe pas")

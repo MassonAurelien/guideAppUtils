@@ -2,7 +2,6 @@
 
 #Partie Traitement Mot Clé
 import sqlite3
-from google_translate_py import Translator
 import re
 from database import connection,updateInsertTable
 
@@ -43,5 +42,5 @@ if con != None and cur != None:
     InsertRequete = "REPLACE INTO MOTCLE VALUES (?, ?, ?)"
     updateInsertTable(con,cur,UpdateRequete,listDesc)
     updateInsertTable(con,cur,InsertRequete,listeMotCléObjet)
-    print("Traitement Description Effectué")
     con.close()
+    print("Traitement Description Effectué")
