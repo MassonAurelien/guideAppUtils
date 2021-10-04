@@ -9,26 +9,35 @@ from openpyxl.styles import Font
 from database import connection,updateInsertTable
 from pathlib import Path
 
-chemin = input("Chemin d'accès BD NAMIP: ")
-#chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
+#chemin = input("Chemin d'accès BD NAMIP: ")
+chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
 con,cur = connection(chemin)
 
 def initTableau():
     wb = Workbook()
     ws = wb.active
-    ws['A1'] = 'DescFR'
-    ws['B1'] = 'DescEN'
-    ws['C1'] = 'DescNL'
-    ws['D1'] = 'ID'
+    ws['A1'] = 'Année'
+    ws['B1'] = 'Nom'
+    ws['C1'] = 'Type'
+    ws['D1'] = 'DescFR'
+    ws['E1'] = 'DescEN'
+    ws['F1'] = 'DescNL'
+    ws['G1'] = 'ID'
     ws['A1'].font = Font(bold=True)
     ws['B1'].font = Font(bold=True)
     ws['C1'].font = Font(bold=True)
     ws['D1'].font = Font(bold=True)
+    ws['E1'].font = Font(bold=True)
+    ws['F1'].font = Font(bold=True)
+    ws['G1'].font = Font(bold=True)
     return ws,wb
 
 def ajouterData(ws):
-    for row in cur.execute('SELECT DescFR,DescEN,DescNL,ID FROM GENERAL;'):
-        ws.append([row[0],row[1],row[2],row[3]])
+    for row in cur.execute('SELECT Annee,Nom,TYPE,DescFR,DescEN,DescNL,ID FROM GENERAL;'):
+        tab = []
+        for x in row :
+            tab.append(x)
+        ws.append(tab)
 
 def saveData(wb,chemin):
     wb.save(chemin+"/"+"description.xlsx")
@@ -43,26 +52,26 @@ def recupData(ws):
         list.append(listIntermediaire)
     return list
 
-action = input("Voulez vous écrire dans la BD : A ou dans l'excel : B")
+action = input("A : BD vers excel ou B : Excel vers BD ?")
 if(action == "B"):
     ws,wb = initTableau()
     ajouterData(ws)
-    chemin = input("Où sauvegarder le fichier ?")
+    chemin = input("Donnez le chemin où enregistrer ?")
     if Path(chemin).exists() and Path(chemin).is_dir():
         saveData(wb,chemin)
         print("Ecriture dans un fichier Excel terminé")
     else :
         print("Le chemin donné n'existe pas")
 elif(action == "A"):
-    chemin = input("Entrez le chemin du fichier:")
+    chemin = input("Entrez le chemin d'accès du fichier Excel:")
     if Path(chemin).exists() and Path(chemin).is_file() and chemin.find(".xlsx") !=-1:
         wb = load_workbook(chemin)
         ws = wb.active
         listDesc = recupData(ws)
-        requete = "UPDATE GENERAL SET DescFR = ?, DescEN = ? ,DescNL = ? WHERE ID = ?;"
+        requete = "UPDATE GENERAL SET Annee = ?, Nom = ?, TYPE = ?, DescFR = ?, DescEN = ? ,DescNL = ? WHERE ID = ?;"
         updateInsertTable(con,cur,requete,listDesc)
         con.close()
-        print("Insertion dans la base terminée")
+        print("Insertion dans la BD terminée")
     else:
         print("Le chemin d'accès n'est pas bon")
 else:

@@ -5,8 +5,8 @@ import sqlite3
 import re
 from database import connection,updateInsertTable
 
-chemin = input("Chemin d'accès BD NAMIP: ")
-#chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
+#chemin = input("Chemin d'accès BD NAMIP: ")
+chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
 con,cur = connection(chemin)
 
 def changementWordbyMotCléDescription(Desc,liste,IdObjet):
@@ -31,8 +31,8 @@ def traiterDescMotClé(listeToutMotClé):
         nlDescMotClé = changementWordbyMotCléDescription(row[3],listeToutMotClé,row[0])
         listDesc.append((frDescMotClé,enDescMotClé,nlDescMotClé,row[0]))
         for x in listeToutMotClé:
-            if (x[1],row[0],x[0]) not in listMotCléObjet and row[1].find(x[0]) != -1 and x[1] != row[0] :
-                listMotCléObjet.append((x[1],row[0],x[0]))
+            if row[1].find(x[0]) != -1 and x[1] != row[0] :
+                listMotCléObjet.append((row[0],x[1],x[0]))
     return listDesc,listMotCléObjet
 
 if con != None and cur != None:
