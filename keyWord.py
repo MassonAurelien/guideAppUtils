@@ -5,11 +5,11 @@ import sqlite3
 import re
 from database import connection,updateInsertTable
 
-#chemin = input("Chemin d'accès BD NAMIP: ")
-chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
+chemin = input("Chemin d'accès BD NAMIP: ")
+#chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
 con,cur = connection(chemin)
 
-def changementWordbyMotCléDescription(Desc,liste,IdObjet):
+def changementWordbyIndexMotClé(Desc,liste,IdObjet):
     for x in liste:
         if Desc.find(x[0]) != -1 and IdObjet != x[1]:
             Desc = Desc.replace(x[0], "|" + str(x[1]) + "|")

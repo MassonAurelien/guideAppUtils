@@ -9,8 +9,8 @@ from openpyxl.styles import Font
 from database import connection,updateInsertTable
 from pathlib import Path
 
-#chemin = input("Chemin d'accès BD NAMIP: ")
-chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
+chemin = input("Chemin d'accès BD NAMIP: ")
+#chemin = "C:/Users/aurel/github/guideApp/assets/database/NAMIP.db"
 con,cur = connection(chemin)
 
 def initTableau():
@@ -40,7 +40,7 @@ def ajouterData(ws):
         ws.append(tab)
 
 def saveData(wb,chemin):
-    wb.save(chemin+"/"+"description.xlsx")
+    wb.save(chemin+"/"+"namip.xlsx")
 
 def recupData(ws):
     list = []
