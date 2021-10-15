@@ -26,9 +26,9 @@ def traiterDescMotClé(listeToutMotClé):
     listDesc = []
     listMotCléObjet = []
     for row in cur.execute("SELECT ID,DescFR,DescEN,DescNL from GENERAL"):
-        frDescMotClé = changementWordbyMotCléDescription(row[1],listeToutMotClé,row[0])
-        enDescMotClé = changementWordbyMotCléDescription(row[2],listeToutMotClé,row[0])
-        nlDescMotClé = changementWordbyMotCléDescription(row[3],listeToutMotClé,row[0])
+        frDescMotClé = changementWordbyIndexMotClé(row[1],listeToutMotClé,row[0])
+        enDescMotClé = changementWordbyIndexMotClé(row[2],listeToutMotClé,row[0])
+        nlDescMotClé = changementWordbyIndexMotClé(row[3],listeToutMotClé,row[0])
         listDesc.append((frDescMotClé,enDescMotClé,nlDescMotClé,row[0]))
         for x in listeToutMotClé:
             if row[1].find(x[0]) != -1 and x[1] != row[0] :

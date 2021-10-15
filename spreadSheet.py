@@ -52,7 +52,7 @@ def recupData(ws):
         list.append(listIntermediaire)
     return list
 
-action = input("A : BD vers excel ou B : Excel vers BD ?")
+action = input("A : Excel vers BD ou B : BD vers Excel ?")
 if(action == "B"):
     ws,wb = initTableau()
     ajouterData(ws)
