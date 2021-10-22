@@ -22,7 +22,7 @@ Un script permet d'appeler cette fonction et de faire l'update à partir de la f
 
 3 - Script keyWord.py :
 
-Ce script contient 3 fonctions : listeAllMotCléPossible(),changementWordbyMotClé() et traiterDescMoClé(), il utilise la bibliothèque sqlite3 et re.
+Ce script contient 3 fonctions : listeAllMotCléPossible(),changementWordbyIndexMotCle() et traiterDescMoClé(), il utilise la bibliothèque sqlite3 et re.
 
 La première fonction permet de récupérer tous les mots clés actuellement possible, à savoir le nom de chaque objet présent dans la BD. Ces mots clés sont ensuite stockées dans une liste avec leur ID et le mots clé en question. La liste est ensuite retournée.
 
