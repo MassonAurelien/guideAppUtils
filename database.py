@@ -10,7 +10,7 @@ def connection(chemin):
         return con,cur
     else:
         print("Chemin d'accès éronné")
-        return None,None
+        exit()
 
 def updateInsertTable(con,cur,requete,tableau):
     cur.executemany(requete,tableau)
