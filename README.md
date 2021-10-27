@@ -8,7 +8,7 @@ Ce projet réunit 4 petits scripts de type Utilitaires pour l'application du mus
 
 Ce script contient deux fonctions : connection() et update(), et utilise les bibliothèques sqlite3 et pathlib.
 
-La première comme son nom l'indique permet de créer la connexion à la base de données en prenant comme argument le chemin de cette dernière, la connexion se fait si le chemin existe et est bien celui de la base de données se nommant "NAMIP.db". Ensuite elle renvoie deux objets : con (objet connexion) et cur (objet curseur qui permet de faire les exécutions SQL) ou None,None si la connexion n'a pas marché.
+La première comme son nom l'indique permet de créer la connexion à la base de données en prenant comme argument le chemin de cette dernière, la connexion se fait si le chemin existe et est bien celui de la base de données se nommant "NAMIP.db". Ensuite elle renvoie deux objets : con (objet connexion) et cur (objet curseur qui permet de faire les exécutions SQL) ou elle stop le script si le chemin n'est pas bon.
 
 La deuxième fonction permet de faire les update/insert dans la BD et de sauvegarder ces changements. Elle prend en arguments le con et le cur mais aussi la requête à exécuter ainsi que le tableau des arguments de la requête. Elle utilise la fonction executemany() pour effectuer plusieurs update à partir d'un tableau contenant lui même des tableaux d'arguments.
 
