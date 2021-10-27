@@ -11,7 +11,7 @@ con,cur = connection(chemin)
 
 def changementWordbyIndexMotClé(Desc,liste,IdObjet):
     for x in liste:
-        if Desc.find(x[0]) != -1 and IdObjet != x[1]:
+        if Desc.find(" "+x[0]+" ") != -1 and IdObjet != x[1]:
             Desc = Desc.replace(x[0], "|" + str(x[1]) + "|")
     return Desc
 
