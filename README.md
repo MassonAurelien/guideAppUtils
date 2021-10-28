@@ -48,6 +48,7 @@ Un script permet ensuite à l'utilisateur de choisir entre écrire dans la BD à
 Pour le premier cas, on demande à l'utilisateur le chemin de l'Excel, on vérifie que le chemin existe et correspond à un fichier de type .xlsx. Ensuite on charge l'Excel, récupère les données et update la BD avec la fonction update du script database.py.
 Pour le deuxième cas, on créé le fichier Excel, on y ajoute les données, et on demande à l'utilisateur où il veut enregistrer le fichier en vérifiant que le chemin données existe et correspond bien à un répertoire et non un fichier. 
 
+Author : Aurélien MASSON
 
 
 
