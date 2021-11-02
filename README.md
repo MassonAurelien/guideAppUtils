@@ -22,11 +22,11 @@ Un script permet d'appeler cette fonction et de faire l'update à partir de la f
 
 3 - Script keyWord.py :
 
-Ce script contient 3 fonctions : listeAllMotCléPossible(),changementWordbyIndexMotCle() et traiterDescMoClé(), il utilise la bibliothèque sqlite3 et re.
+Ce script contient 3 fonctions : listeAllMotCléPossible(),changementWordbyIndexMotCle() et traiterDescMotClé(), il utilise la bibliothèque sqlite3 et re.
 
-La première fonction permet de récupérer tous les mots clés actuellement possible, à savoir le nom de chaque objet présent dans la BD. Ces mots clés sont ensuite stockées dans une liste avec leur ID et le mots clé en question. La liste est ensuite retournée.
+La première fonction permet de récupérer tous les mots clés actuellement possible, à savoir le nom de chaque objet présent dans la BD en plus de ceux présent dans la colonne listeMotCle. Ces mots clés sont ensuite stockées dans une liste avec leur ID et le mots clé en question. La liste est ensuite retournée.
 
-La deuxième fonction permet de modifier une description qui contient des mots clé. Elle prend en argument la description a modifié ainsi que l'ID de l'objet possédant cette description et enfin la liste de tous les mots clé. Elle cherche ensuite pour chaque mot clé si il apparaisse dans la description et remplace ce dernier par |IDMotClé|. Le mot clé n'est pas remplacé si son ID est égal à l'ID de l'objet passé en paramètre.
+La deuxième fonction permet de modifier une description qui contient des mots clé. Elle prend en argument la description a modifié ainsi que l'ID de l'objet possédant cette description et enfin la liste de tous les mots clé. Elle cherche ensuite pour chaque mot clé si il apparaisse dans la description et remplace ce dernier par |IDMotClé|. Le mot clé n'est pas remplacé si son ID est égal à l'ID de l'objet passé en paramètre. C'est dans cette fonction que l'on sauvegarde les mots clés détéctés dans chaque description.
 
 La troisième fonction permet de traiter le changement de descriptions pour chaque objet de la BD avec un appelle à la fonction changementWordbyMotClé(), les descriptions modifiées sont ensuite ajoutés à une liste avec l'ID de l'objet pour pouvoir ensuite les charger dans la BD. La fonction sauvegarde aussi dans une liste des tuples unique comprenant l'ID de l'objet modifié, l'ID du mot clé ainsi que le mot clé cette liste est aussi renvoyé.
 
